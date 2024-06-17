@@ -6,11 +6,13 @@ data <- read.table("household_power_consumption.txt",
 data <- subset(data, Date %in% c("1/2/2007", "2/2/2007"))
 #converting Date to as.Date format
 data$Date <- as.Date(data$Date, format = "%d/%m/%Y")
-#formatting the png
-png("plot1.png", width = 480, height = 480)
-#creating the histogram with the required parameters
-hist(data$Global_active_power, col = "red",
-     main = "Global Active Power",
-     xlab = "Global Active Power (kilowatts)")
-#off
+dateTime <- paste(data$Date, data$Time)
+data$DateTime <- as.POSIXct(dateTime)
+png("plot2.png", width = 480, height = 480)
+with(data, {
+  plot(Global_active_power~DateTime,
+       type = "1",
+       ylab = "Global Active Power (kilowatts)",
+       xlab = "")
+})
 dev.off()

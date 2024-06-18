@@ -8,10 +8,9 @@ data <- read.table("household_power_consumption.txt",
                    na.strings = "?")
 ##Subsetting only the required dates
 data <- subset(data, Date %in% c("1/2/2007", "2/2/2007"))
-#Converting Dates to the correct format
-
+#Converting Date, Time to the correct format
 data$DateTime <- dmy_hms(paste(data$Date, data$Time))
-
+##Creating png with required parameters
 png("plot2.png", width = 480, height = 480)
 with(data, {
   plot(Global_active_power~DateTime,
